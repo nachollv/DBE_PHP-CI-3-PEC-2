@@ -1,2 +1,5 @@
-# DBE_PHP-CI-3-PEC-2
-La PEC 2 realizada sobre CI 3 con Grocery CRUD 1.6.4
+Grocery CRUD
+=============
+Grocery CRUD is a PHP and Codeigniter Framework library that creates a full functional CRUD system without the need to customise JavaScript or CSS.
+
+For more information, visit http://www.grocerycrud.com
