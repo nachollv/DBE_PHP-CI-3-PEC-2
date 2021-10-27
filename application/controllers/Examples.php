@@ -26,7 +26,28 @@ class Examples extends CI_Controller {
 
 	public function index()
 	{
-		$this->_example_output((object)array('output' => '' , 'js_files' => array() , 'css_files' => array()));
+		$crud = new grocery_CRUD();
+
+			$crud->set_theme('flexigrid');
+			$crud->set_table('noticia');
+			$crud->display_as('titulo','Título');
+			$crud->display_as('fecha_de_publicacion','Fecha de publicación');
+			$crud->set_relation_n_n('noticia', 'news_category', 'category', 'news_id', 'category_id', 'name');
+			$crud->set_subject('News');
+
+			$crud->required_fields('titulo');
+			$crud->required_fields('autor');
+			$crud->required_fields('fecha_de_publicacion');
+			$crud->required_fields('contenido');
+			$crud->required_fields('imagen');
+			$crud->required_fields('categoria');
+
+			$crud->set_field_upload('imagen','assets/uploads/files');
+			$crud->fields('titulo', 'autor', 'actors' ,  'fecha_de_publicacion' ,'contenido', 'imagen');
+			$output = $crud->render();
+
+			$this->_example_output($output);
+		//$this->_example_output((object)array('output' => '' , 'js_files' => array() , 'css_files' => array()));
 	}
 
 	public function offices_management()
@@ -47,6 +68,33 @@ class Examples extends CI_Controller {
 		}catch(Exception $e){
 			show_error($e->getMessage().' --- '.$e->getTraceAsString());
 		}
+	}
+
+	public function news_management()
+	{
+			$crud = new grocery_CRUD();
+
+			$crud->set_theme('datatables');
+			$crud->set_table('noticia');
+			$crud->display_as('titulo','Título');
+			$crud->display_as('fecha_de_publicacion','Fecha de publicación');
+			$crud->set_relation_n_n('category', 'news_category', 'category', 'news_id', 'category_id', 'name');
+
+			$crud->set_subject('News');
+
+			$crud->required_fields('titulo');
+			$crud->required_fields('slub');
+			$crud->required_fields('autor');
+			$crud->required_fields('fecha_de_publicacion');
+			$crud->required_fields('contenido');
+			$crud->required_fields('imagen');
+			$crud->required_fields('categoria');
+
+			$crud->set_field_upload('imagen','assets/uploads/files');
+
+			$output = $crud->render();
+
+			$this->_example_output($output);
 	}
 
 	public function employees_management()
@@ -74,9 +122,9 @@ class Examples extends CI_Controller {
 
 			$crud->set_table('customers');
 			$crud->columns('customerName','contactLastName','phone','city','country','salesRepEmployeeNumber','creditLimit');
-			$crud->display_as('salesRepEmployeeNumber','from Employeer')
-				 ->display_as('customerName','Name')
-				 ->display_as('contactLastName','Last Name');
+			$crud->display_as('salesRepEmployeeNumber','from Employeer');
+			$crud->display_as('customerName','Name');
+			$crud->display_as('contactLastName','Last Name');
 			$crud->set_subject('Customer');
 			$crud->set_relation('salesRepEmployeeNumber','employees','lastName');
 
@@ -228,9 +276,9 @@ class Examples extends CI_Controller {
 
 		$crud->set_table('customers');
 		$crud->columns('customerName','contactLastName','phone','city','country','salesRepEmployeeNumber','creditLimit');
-		$crud->display_as('salesRepEmployeeNumber','from Employeer')
-			 ->display_as('customerName','Name')
-			 ->display_as('contactLastName','Last Name');
+		$crud->display_as('salesRepEmployeeNumber','from Employeer');
+		$crud->display_as('customerName','Name');
+		$crud->display_as('contactLastName','Last Name');
 		$crud->set_subject('Customer');
 		$crud->set_relation('salesRepEmployeeNumber','employees','lastName');
 
